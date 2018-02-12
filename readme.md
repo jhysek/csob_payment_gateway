@@ -1,5 +1,10 @@
 # Csob payment gateway
 
+## BEWARE!
+You should probably use the original library https://github.com/sedrickcz/csob_payment_gateway
+This is a quick hack, where you have to insert actual keys right into the config variables (config.private_key and config.public_key).
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -28,32 +33,13 @@ CsobPaymentGateway.configure do |config|
   config.currency           = 'CZK'
   config.environment        = Rails.env.production? ? :production : :test
   config.gateway_url        = "https://iapi.iplatebnibrana.csob.cz/api/v1.7"
-  config.keys_directory     = "private/keys"
   config.merchant_id        = "M1MIPS0459"
-  config.private_key        = "rsa_M1MIPS0459.key"
-  config.public_key         = "mips_iplatebnibrana.csob.cz.pub"
+  config.private_key        = "-----BEGIN RSA PRIVATE KEY----- ...."
+  config.public_key         = "-----BEGIN PUBLIC KEY----- ..."
   config.return_method_post = true
   config.return_url         = "http://localhost:3000/orders/process_order"
 end
 ```
-
-or
-
-config/csob.yml
-
-```yml
-close_payment: "true"
-currency: "CZK"
-environment: :test
-gateway_url: "https://iapi.iplatebnibrana.csob.cz/api/v1.7"
-keys_directory: "private/keys"
-merchant_id: "M1MIPS0459"
-private_key: "rsa_M1MIPS0459.key"
-public_key: "mips_iplatebnibrana.csob.cz.pub"
-return_method_post: true
-return_url: "http://localhost:3000/orders/process_order"
-```
-
 ### Payment
 
 ```ruby

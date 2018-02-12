@@ -49,17 +49,9 @@ module CsobPaymentGateway
       data_to_sign
     end
 
-    def private_key_url
-      ::Rails.root.join(CsobPaymentGateway.configuration.keys_directory.to_s, CsobPaymentGateway.configuration.private_key.to_s)
-    end
-
-    def public_key_url
-      ::Rails.root.join(CsobPaymentGateway.configuration.keys_directory.to_s, CsobPaymentGateway.configuration.public_key.to_s)
-    end
-
     def sign(data, method)
       data_to_sign = prepare_data_to_sign(data, method)
-      key = OpenSSL::PKey::RSA.new(File.read(private_key_url))
+      key = OpenSSL::PKey::RSA.new(CsobPaymentGateway.configuration.private_key.to_s)
 
       digest = OpenSSL::Digest::SHA1.new
       signature = key.sign(digest, data_to_sign)
@@ -68,7 +60,7 @@ module CsobPaymentGateway
     end
 
     def verify(data, signature_64)
-      key = OpenSSL::PKey::RSA.new(File.read(public_key_url))
+      key = OpenSSL::PKey::RSA.new(CsobPaymentGateway.configuration.public_key.to_s)
       signature = Base64.decode64(signature_64)
       digest = OpenSSL::Digest::SHA1.new
       if key.verify digest, signature, data
