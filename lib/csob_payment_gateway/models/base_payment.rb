@@ -14,7 +14,7 @@ module CsobPaymentGateway
       @gateway_url ||= CsobPaymentGateway.configuration.gateway_url.to_s
       @return_url ||= CsobPaymentGateway.configuration.return_url.to_s
       @default_currency ||= CsobPaymentGateway.configuration.currency.to_s
-      @close_payment ||= CsobPaymentGateway.configuration.close_payment.to_s
+      @close_payment ||= CsobPaymentGateway.configuration.close_payment
       @keys_directory ||= CsobPaymentGateway.configuration.keys_directory.to_s
 
       @timestamp = Time.now.strftime('%Y%m%d%H%M%S')
@@ -124,7 +124,6 @@ module CsobPaymentGateway
           returnMethod: 'POST',
           cart: cart_items,
           description: description,
-          merchantData: "ZXNob3A=" 
       }
       data.merge!(customerId: customer_id) if customer_id.present? && customer_id.to_s != '0'
       data.merge!(language: 'EN')
