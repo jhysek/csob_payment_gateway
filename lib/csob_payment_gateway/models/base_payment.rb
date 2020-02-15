@@ -124,7 +124,7 @@ module CsobPaymentGateway
           returnMethod: 'POST',
           cart: cart_items,
           description: description,
-          merchantData: nil
+          merchantData: "ZXNob3A=" 
       }
       data.merge!(customerId: customer_id) if customer_id.present? && customer_id.to_s != '0'
       data.merge!(language: 'EN')
