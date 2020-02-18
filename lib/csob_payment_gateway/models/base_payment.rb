@@ -96,13 +96,13 @@ module CsobPaymentGateway
     def put_data
       data = {
           merchantId: merchant_id,
-          payId: response['payId'],
+          payId: @pay_id || response['payId'],
           dttm: timestamp
       }
 
       text = [
           merchant_id,
-          response['payId'],
+          @pay_id || response['payId'],
           timestamp
       ].map { |param| param.is_a?(Hash) ? '' : param.to_s }.join('|')
 
