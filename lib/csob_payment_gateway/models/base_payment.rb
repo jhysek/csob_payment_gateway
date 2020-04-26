@@ -126,7 +126,7 @@ module CsobPaymentGateway
           description: description,
       }
       data.merge!(customerId: customer_id) if customer_id.present? && customer_id.to_s != '0'
-      data.merge!(language: 'EN')
+      data.merge!(language: 'CZ')
       data.merge(signature: CsobPaymentGateway::Crypt.sign(data, 'POST'))
     end
 
